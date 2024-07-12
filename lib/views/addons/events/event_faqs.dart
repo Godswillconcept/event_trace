@@ -15,9 +15,10 @@ class EventFaqs extends StatefulWidget {
 class _EventFaqsState extends State<EventFaqs> {
   @override
   Widget build(BuildContext context) {
-    final eventSlug = Provider.of<EventNotifier>(context).slug;
+    final eventSlug = Provider.of<EventNotifier>(context, listen: false).slug;
     return Column(
       children: [
+        Text(eventSlug),
         DynamicButton(
           buttonText: 'Attach FAQs',
           onTap: () {},

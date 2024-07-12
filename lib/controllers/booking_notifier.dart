@@ -17,9 +17,12 @@ class BookingNotifier extends ChangeNotifier {
   }
 
   // updating booking
-  updateBooking(Booking booking) {
-    bookingList[bookingList.indexOf(booking)] = booking;
-    notifyListeners();
+  void updateBooking(Booking updatedBooking) {
+    final index = bookingList.indexWhere((booking) => booking.id == updatedBooking.id);
+    if (index != -1) {
+      bookingList[index] = updatedBooking;
+      notifyListeners();
+    }
   }
 
   // loading bookings from server into the provider

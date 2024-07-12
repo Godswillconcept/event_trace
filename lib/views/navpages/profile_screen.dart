@@ -1,6 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'dart:developer';
+
 import 'package:event_trace/constants/app_data.dart';
 import 'package:event_trace/models/User.dart';
+import 'package:event_trace/views/addons/edit_profile_screen.dart';
+import 'package:event_trace/views/addons/help_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 
@@ -26,6 +30,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
       user = User.fromJson(userData);
     }
   }
+
+  List<Map<String, dynamic>> profileData = [
+    {
+      'title': "Edit Profile",
+      'link': EditProfileScreen(),
+    },
+    {
+      'title': "Notifications",
+      'link': null,
+    },
+    {
+      'title': "Frequently Asked Questions",
+      'link': HelpScreen(),
+    },
+    {
+      'title': "Contact Us",
+      'link': null,
+    },
+    {
+      'title': "Sign out",
+      'link': null,
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -64,74 +91,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: CircleAvatar(
-                  radius: 50,
-                  backgroundColor:
-                      Theme.of(context).colorScheme.secondaryContainer,
-                  backgroundImage: AssetImage('assets/images/member-02.png'),
-                ),
-              ),
-              Text(
-                user!.name!,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundColor:
+                        Theme.of(context).colorScheme.secondaryContainer,
+                    backgroundImage: AssetImage('assets/images/member-02.png'),
+                  ),
+                  SizedBox(width: 10),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '350',
+                        user!.name!,
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 24,
                           fontWeight: FontWeight.w600,
                           color: Theme.of(context).colorScheme.onPrimary,
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       Text(
-                        'Following',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    color: Theme.of(context).colorScheme.secondary,
-                    width: 1,
-                    height: 40,
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        '346',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'Follower',
+                        user!.email,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w400,
@@ -142,79 +124,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
-              OutlinedButton.icon(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/edit-profile');
+              SizedBox(height: 20),
+              
+              SizedBox(height: 20),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: profileData.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    trailing: Icon(Icons.arrow_forward_ios),
+                    title: Text(
+                      profileData[index]['title'],
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    onTap: () {
+                      log(profileData[index]['title']);
+                    },
+                  );
                 },
-                icon: Icon(
-                  Icons.edit_square,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                label: Text(
-                  "Edit Profile",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
-                style: OutlinedButton.styleFrom(
-                    foregroundColor: Theme.of(context).colorScheme.primary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    side: BorderSide(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    minimumSize: Size(150, 50)),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "About Me",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text:
-                              "Hi there, I'm ${user!.name}! I'm a software developer with a for creating beautiful anditive user experiences. I'm always looking for new challenges and opportunities to grow and learn. ",
-                          style: TextStyle(
-                            fontSize: 18,
-                            height: 1.5,
-                          ),
-                        ),
-                        TextSpan(
-                          text: 'Read More',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Theme.of(context).colorScheme.primary,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20),
               Row(
                 children: [
                   Text(

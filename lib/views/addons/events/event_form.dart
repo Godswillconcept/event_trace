@@ -298,14 +298,8 @@ class _EventFormState extends State<EventForm> {
       if (response != null) {
         final event = Event.fromMap(response['event']);
         context.read<EventNotifier>().setSlug(event.slug);
-        // Navigator.pushReplacement(
-        //   context,
-        //   MaterialPageRoute(builder: (context) {
-        //     return EventImageAttachment(
-        //       event: event,
-        //     );
-        //   }),
-        // );
+        context.read<EventNotifier>().addEvent(event);
+        Navigator.pushNamed(context, '/add_images');
       } else {
         // Handle the error response
         log('Failed to create event: ${response?.statusCode}');
@@ -320,5 +314,4 @@ class _EventFormState extends State<EventForm> {
           Colors.red, Colors.white);
     }
   }
-
 }

@@ -17,9 +17,12 @@ class TicketNotifier extends ChangeNotifier {
   }
 
   // updating ticket
-  updateTicket(Ticket ticket) {
-    ticketList[ticketList.indexOf(ticket)] = ticket;
-    notifyListeners();
+  void updateTicket(Ticket updatedTicket) {
+    final index = ticketList.indexWhere((ticket) => ticket.id == updatedTicket.id);
+    if (index != -1) {
+      ticketList[index] = updatedTicket;
+      notifyListeners();
+    }
   }
 
   // loading tickets from server into the provider

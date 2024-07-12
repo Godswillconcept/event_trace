@@ -60,12 +60,7 @@ class _EventImagesState extends State<EventImages> {
       if (response != null) {
         final event = Event.fromMap(response['event']);
         context.read<EventNotifier>().updateEvent(event);
-        triggerToast(
-          context,
-          'Successfully uploaded images',
-          Colors.green,
-          Colors.white,
-        );
+        Navigator.pushNamed(context, '/add_ticket');
       } else {
         // Handle the error response
         log('Failed to upload images: ${response?.statusCode}');
@@ -92,6 +87,11 @@ class _EventImagesState extends State<EventImages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Event Images'),
+        centerTitle: true,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(

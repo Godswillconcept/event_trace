@@ -10,16 +10,15 @@ class PromoteEvent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final eventSlug = Provider.of<EventNotifier>(context).slug;
-    return Container(
-      child: Column(
-        children: [
-          DynamicButton(
-            buttonText: 'Promote Event',
-            onTap: () {},
-          )
-        ],
-      ),
+    final eventSlug = Provider.of<EventNotifier>(context, listen: false).slug;
+    return Column(
+      children: [
+        Text(eventSlug),
+        DynamicButton(
+          buttonText: 'Promote Event',
+          onTap: () {},
+        )
+      ],
     );
   }
 }

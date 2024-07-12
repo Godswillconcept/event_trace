@@ -12,6 +12,7 @@ class EventNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  
   // adding event
   addEvent(Event event) {
     eventList.add(event);
@@ -25,9 +26,12 @@ class EventNotifier extends ChangeNotifier {
   }
 
   // updating event
-  updateEvent(Event event) {
-    eventList[eventList.indexOf(event)] = event;
-    notifyListeners();
+  void updateEvent(Event updatedEvent) {
+    final index = eventList.indexWhere((event) => event.id == updatedEvent.id);
+    if (index != -1) {
+      eventList[index] = updatedEvent;
+      notifyListeners();
+    }
   }
 
   // loading events from server into the provider
@@ -35,6 +39,4 @@ class EventNotifier extends ChangeNotifier {
     eventList = events;
     notifyListeners();
   }
-
-
 }

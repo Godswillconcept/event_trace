@@ -17,9 +17,12 @@ class PromotionNotifier extends ChangeNotifier {
   }
 
   // updating promotion
-  updatePromotion(Promotion promotion) {
-    promotionList[promotionList.indexOf(promotion)] = promotion;
-    notifyListeners();
+  void modifyPromotion(Promotion updatedPromotion) {
+    final index = promotionList.indexWhere((promotion) => promotion.id == updatedPromotion.id);
+    if (index != -1) {
+      promotionList[index] = updatedPromotion;
+      notifyListeners();
+    }
   }
 
   // loading promotions from server into the provider

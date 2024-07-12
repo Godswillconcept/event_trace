@@ -20,9 +20,12 @@ class VenueNotifier extends ChangeNotifier {
   }
 
   // updating venue
-  updateVenue(Venue venue) {
-    venueList[venueList.indexOf(venue)] = venue;
-    notifyListeners();
+  void modifyVenue(Venue updatedVenue) {
+    final index = venueList.indexWhere((venue) => venue.id == updatedVenue.id);
+    if (index != -1) {
+      venueList[index] = updatedVenue;
+      notifyListeners();
+    }
   }
 
   // loading venues from server into the provider

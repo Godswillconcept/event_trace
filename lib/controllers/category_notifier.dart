@@ -18,9 +18,12 @@ class CategoryNotifier extends ChangeNotifier {
   }
 
   // updating category
-  updateCategory(Category category) {
-    categoryList[categoryList.indexOf(category)] = category;
-    notifyListeners();
+  void updateCategory(Category updatedCategory) {
+    final index = categoryList.indexWhere((category) => category.id == updatedCategory.id);
+    if (index != -1) {
+      categoryList[index] = updatedCategory;
+      notifyListeners();
+    }
   }
 
   // loading categorys from server into the provider

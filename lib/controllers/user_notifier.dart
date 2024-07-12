@@ -17,9 +17,12 @@ class UserNotifier extends ChangeNotifier {
   }
 
   // updating user
-  updateUser(User user) {
-    userList[userList.indexOf(user)] = user;
-    notifyListeners();
+  void modifyUser(User modifiedUser) {
+    final index = userList.indexWhere((user) => user.id == modifiedUser.id);
+    if (index != -1) {
+      userList[index] = modifiedUser;
+      notifyListeners();
+    }
   }
 
   // loading users from server into the provider

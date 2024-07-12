@@ -18,9 +18,12 @@ class FaqNotifier extends ChangeNotifier {
   }
 
   // updating faq
-  updateFaq(Faq faq) {
-    faqList[faqList.indexOf(faq)] = faq;
-    notifyListeners();
+  updateFaq(Faq updatedFaq) {
+    final index = faqList.indexWhere((faq) => faq.id == updatedFaq.id);
+    if (index != -1) {
+      faqList[index] = updatedFaq;
+      notifyListeners();
+    }
   }
 
   // loading faqs from server into the provider

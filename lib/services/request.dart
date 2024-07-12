@@ -4,8 +4,9 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 
 // const host = "192.168.0.101"; // Connected
-const host = "192.168.8.106"; // AphzolVirusMesh
-// const host = "192.168.100.11"; // Alusoft
+// const host = "192.168.8.107"; // AphzolVirusMesh
+const host = "192.168.100.11"; // Alusoft
+// const host = "192.168.174.123"; // HarmTee
 const port = "8000";
 const url = "http://$host:$port";
 const baseUrl = "$url/api";

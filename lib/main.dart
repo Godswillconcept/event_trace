@@ -1,4 +1,8 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:event_trace/views/addons/events/event_faqs.dart';
+import 'package:event_trace/views/addons/events/event_images.dart';
+import 'package:event_trace/views/addons/events/event_tickets.dart';
+import 'package:event_trace/views/addons/events/promote_event.dart';
 import 'package:event_trace/views/navpages/create_event_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,84 +42,92 @@ import 'package:event_trace/views/start_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // // bookings fetched from server to provider
-  // var bookingResponse = await getRequest('bookings', null);
-  // List<Booking> bookingList = [];
-  // List bookingData = bookingResponse.data['bookings'];
-  // for (var booking in bookingData) {
-  //   bookingList.add(Booking.fromMap(booking));
-  // }
+  // List of futures for all the requests
+  var futures = [
+    getRequest('bookings', null),
+    getRequest('categories', null),
+    getRequest('events', null),
+    getRequest('faqs', null),
+    getRequest('promotions', null),
+    getRequest('tickets', null),
+    getRequest('users', null),
+    getRequest('venues', null),
+  ];
 
-  // // categories fetched from server to provider
-  // var categoryResponse = await getRequest('categories', null);
-  // List<Category> categoryList = [];
-  // List categoryData = categoryResponse.data['categories'];
-  // for (var category in categoryData) {
-  //   categoryList.add(Category.fromMap(category));
-  // }
+  // Await all the futures
+  var responses = await Future.wait(futures);
 
-  // // events fetched from server to provider
-  // var eventResponse = await getRequest('events', null);
-  // List<Event> eventList = [];
-  // List eventData = eventResponse.data['events'];
-  // for (var event in eventData) {
-  //   eventList.add(Event.fromMap(event));
-  // }
+  // Process the responses
+  var bookingResponse = responses[0];
+  List<Booking> bookingList = [];
+  List bookingData = bookingResponse.data['bookings'];
+  for (var booking in bookingData) {
+    bookingList.add(Booking.fromMap(booking));
+  }
 
-  // // faqs fetched from server to provider
-  // var faqResponse = await getRequest('faqs', null);
-  // List<Faq> faqList = [];
-  // List faqData = faqResponse.data['faqs'];
-  // for (var faq in faqData) {
-  //   faqList.add(Faq.fromMap(faq));
-  // }
+  var categoryResponse = responses[1];
+  List<Category> categoryList = [];
+  List categoryData = categoryResponse.data['categories'];
+  for (var category in categoryData) {
+    categoryList.add(Category.fromMap(category));
+  }
 
-  // // promotions fetched from server to provider
-  // var promotionResponse = await getRequest('promotions', null);
-  // List<Promotion> promotionList = [];
-  // List promotionData = promotionResponse.data['promotions'];
-  // for (var promotion in promotionData) {
-  //   promotionList.add(Promotion.fromMap(promotion));
-  // }
+  var eventResponse = responses[2];
+  List<Event> eventList = [];
+  List eventData = eventResponse.data['events'];
+  for (var event in eventData) {
+    eventList.add(Event.fromMap(event));
+  }
 
-  // // promotions fetched from server to provider
-  // var ticketResponse = await getRequest('tickets', null);
-  // List<Ticket> ticketList = [];
-  // List ticketData = ticketResponse.data['tickets'];
-  // for (var ticket in ticketData) {
-  //   ticketList.add(Ticket.fromMap(ticket));
-  // }
+  var faqResponse = responses[3];
+  List<Faq> faqList = [];
+  List faqData = faqResponse.data['faqs'];
+  for (var faq in faqData) {
+    faqList.add(Faq.fromMap(faq));
+  }
 
-  // // users fetched from server to provider
-  // var userResponse = await getRequest('users', null);
-  // List<User> userList = [];
-  // List userData = userResponse.data['users'];
-  // for (var user in userData) {
-  //   userList.add(User.fromMap(user));
-  // }
+  var promotionResponse = responses[4];
+  List<Promotion> promotionList = [];
+  List promotionData = promotionResponse.data['promotions'];
+  for (var promotion in promotionData) {
+    promotionList.add(Promotion.fromMap(promotion));
+  }
 
-  // // venues fetched from server to provider
-  // var venueResponse = await getRequest('venues', null);
-  // List<Venue> venueList = [];
-  // List venueData = venueResponse.data['venues'];
-  // for (var venue in venueData) {
-  //   venueList.add(Venue.fromMap(venue));
-  // }
+  var ticketResponse = responses[5];
+  List<Ticket> ticketList = [];
+  List ticketData = ticketResponse.data['tickets'];
+  for (var ticket in ticketData) {
+    ticketList.add(Ticket.fromMap(ticket));
+  }
+
+  var userResponse = responses[6];
+  List<User> userList = [];
+  List userData = userResponse.data['users'];
+  for (var user in userData) {
+    userList.add(User.fromMap(user));
+  }
+
+  var venueResponse = responses[7];
+  List<Venue> venueList = [];
+  List venueData = venueResponse.data['venues'];
+  for (var venue in venueData) {
+    venueList.add(Venue.fromMap(venue));
+  }
 
   runApp(MultiProvider(
     providers: [
-      // ChangeNotifierProvider(
-      //     create: (context) => BookingNotifier.all(bookingList)),
-      // ChangeNotifierProvider(
-      //     create: (context) => CategoryNotifier.all(categoryList)),
-      // ChangeNotifierProvider(create: (context) => EventNotifier.all(eventList)),
-      // ChangeNotifierProvider(create: (context) => FaqNotifier.all(faqList)),
-      // ChangeNotifierProvider(
-      //     create: (context) => PromotionNotifier.all(promotionList)),
-      // ChangeNotifierProvider(
-      //     create: (context) => TicketNotifier.all(ticketList)),
-      // ChangeNotifierProvider(create: (context) => UserNotifier.all(userList)),
-      // ChangeNotifierProvider(create: (context) => VenueNotifier.all(venueList)),
+      ChangeNotifierProvider(
+          create: (context) => BookingNotifier.all(bookingList)),
+      ChangeNotifierProvider(
+          create: (context) => CategoryNotifier.all(categoryList)),
+      ChangeNotifierProvider(create: (context) => EventNotifier.all(eventList)),
+      ChangeNotifierProvider(create: (context) => FaqNotifier.all(faqList)),
+      ChangeNotifierProvider(
+          create: (context) => PromotionNotifier.all(promotionList)),
+      ChangeNotifierProvider(
+          create: (context) => TicketNotifier.all(ticketList)),
+      ChangeNotifierProvider(create: (context) => UserNotifier.all(userList)),
+      ChangeNotifierProvider(create: (context) => VenueNotifier.all(venueList)),
       ChangeNotifierProvider(create: (context) => ThemeProvider()),
     ],
     child: const MyApp(),
@@ -125,19 +137,17 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: Provider.of<ThemeProvider>(context).themeData,
-      // home: AnimatedSplashScreen(
-      //   splash: const SplashScreen(),
-      //   nextScreen: const OnboardingScreen(),
-      //   duration: 4000,
-      //   curve: Curves.easeInOut,
-      // ),
-      home: const CreateEventScreen(),
+      home: AnimatedSplashScreen(
+        splash: const SplashScreen(),
+        nextScreen: const OnboardingScreen(),
+        duration: 4000,
+        curve: Curves.easeInOut,
+      ),
       routes: {
         // '/login': (context) => const SigninScreen(),
         // '/register': (context) => const SignupScreen(),
@@ -152,6 +162,11 @@ class MyApp extends StatelessWidget {
         '/settings': (context) => const SettingScreen(),
         '/help': (context) => const HelpScreen(),
         '/intro': (context) => const IntroductionScreen(),
+        '/create_event': (context) => const CreateEventScreen(),
+        '/add_images': (context) => const EventImages(),
+        '/add_ticket': (context) => const EventTickets(),
+        '/add_faq': (context) => const EventFaqs(),
+        '/event_promotion': (context) => const PromoteEvent(),
       },
     );
   }

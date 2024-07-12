@@ -1,3 +1,4 @@
+import 'package:event_trace/views/addons/events/event_form.dart';
 import 'package:flutter/material.dart';
 
 class CreateEventScreen extends StatefulWidget {
@@ -41,92 +42,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
           ),
         ],
       ),
-      body: const Text('Create Event'),
+      body: const EventForm(),
     );
   }
 }
-
-
-    //  body: Column(
-    //     children: [
-    //       LinearProgressIndicator(
-    //         value: (_currentIndex + 1) / 5,
-    //         backgroundColor: Colors.grey[300],
-    //         valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
-    //       ),
-    //       const SizedBox(height: 20),
-    //       Text(
-    //         'Step ${_currentIndex + 1} of 5',
-    //         style: const TextStyle(
-    //           fontSize: 18,
-    //           fontWeight: FontWeight.bold,
-    //         ),
-    //       ),
-    //       Expanded(
-    //         child: PageView(
-    //           controller: _pageController,
-    //           onPageChanged: (index) {
-    //             setState(() {
-    //               _currentIndex = index;
-    //             });
-    //           },
-    //           children: _buildPages(),
-    //         ),
-    //       ),
-    //       Padding(
-    //         padding: const EdgeInsets.all(20.0),
-    //         child: Row(
-    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //           children: [
-    //             if (_currentIndex > 0)
-    //               ElevatedButton(
-    //                 style: ElevatedButton.styleFrom(
-    //                   backgroundColor: Theme.of(context).colorScheme.error,
-    //                   foregroundColor:
-    //                       Theme.of(context).colorScheme.inversePrimary,
-    //                   shape: StadiumBorder(),
-    //                 ),
-    //                 onPressed: () {
-    //                   _pageController.previousPage(
-    //                     duration: Duration(milliseconds: 300),
-    //                     curve: Curves.easeInOut,
-    //                   );
-    //                 },
-    //                 child: const Text('Back'),
-    //               ),
-    //             if (_currentIndex < 4)
-    //               ElevatedButton(
-    //                 style: ElevatedButton.styleFrom(
-    //                   backgroundColor: Theme.of(context).colorScheme.primary,
-    //                   foregroundColor:
-    //                       Theme.of(context).colorScheme.inversePrimary,
-    //                   shape: StadiumBorder(),
-    //                 ),
-    //                 onPressed: () {
-    //                   _pageController.nextPage(
-    //                     duration: Duration(milliseconds: 300),
-    //                     curve: Curves.easeInOut,
-    //                   );
-    //                 },
-    //                 child: const Text('Next'),
-    //               ),
-    //             if (_currentIndex == 4)
-    //               ElevatedButton(
-    //                 style: ElevatedButton.styleFrom(
-    //                   backgroundColor: Theme.of(context).colorScheme.primary,
-    //                   foregroundColor:
-    //                       Theme.of(context).colorScheme.inversePrimary,
-    //                   shape: StadiumBorder(),
-    //                 ),
-    //                 onPressed: () {
-    //                   // Submit the form or perform the final action
-    //                 },
-    //                 child: const Text('Finish'),
-    //               ),
-    //           ],
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-   
-   
