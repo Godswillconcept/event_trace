@@ -2,32 +2,39 @@ import 'package:event_trace/models/User.dart';
 import 'package:flutter/material.dart';
 
 class UserNotifier extends ChangeNotifier {
-  List<User> userList = [];
+  final List<User> _userList = [];
+
+  List<User> get userList => _userList;
+
+  UserNotifier() {
+    // Initialization logic can be added here.
+  }
 
   // adding user
   addUser(User user) {
-    userList.add(user);
+    _userList.add(user);
     notifyListeners();
   }
 
   // removing user
   removeUser(User user) {
-    userList.remove(user);
+    _userList.remove(user);
     notifyListeners();
   }
 
   // updating user
-  void modifyUser(User modifiedUser) {
-    final index = userList.indexWhere((user) => user.id == modifiedUser.id);
+  void updateUser(User updatedUser) {
+    final index = _userList.indexWhere((user) => user.id == updatedUser.id);
     if (index != -1) {
-      userList[index] = modifiedUser;
+      _userList[index] = updatedUser;
       notifyListeners();
     }
   }
 
   // loading users from server into the provider
   UserNotifier.all(List<User> users) {
-    userList = users;
+    _userList.addAll(users);
     notifyListeners();
   }
 }
+

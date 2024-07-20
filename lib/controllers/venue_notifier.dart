@@ -1,36 +1,40 @@
 import 'package:event_trace/models/Venue.dart';
 import 'package:flutter/material.dart';
 
-class VenueNotifier extends ChangeNotifier {
-  List<Venue> venueList = [];
+class VenueNotifier with ChangeNotifier {
+  final List<Venue> _venueList = [];
 
-  // find a user whose owner id is equal to the authenticated user
-  
+  List<Venue> get venueList => _venueList;
+
+  VenueNotifier() {
+    // Initialization logic can be added here.
+  }
 
   // adding venue
   addVenue(Venue venue) {
-    venueList.add(venue);
+    _venueList.add(venue);
     notifyListeners();
   }
 
   // removing venue
   removeVenue(Venue venue) {
-    venueList.remove(venue);
+    _venueList.remove(venue);
     notifyListeners();
   }
 
   // updating venue
-  void modifyVenue(Venue updatedVenue) {
-    final index = venueList.indexWhere((venue) => venue.id == updatedVenue.id);
+  void updateVenue(Venue updatedVenue) {
+    final index = _venueList.indexWhere((venue) => venue.id == updatedVenue.id);
     if (index != -1) {
-      venueList[index] = updatedVenue;
+      _venueList[index] = updatedVenue;
       notifyListeners();
     }
   }
 
   // loading venues from server into the provider
   VenueNotifier.all(List<Venue> venues) {
-    venueList = venues;
+    _venueList.addAll(venues);
     notifyListeners();
   }
 }
+

@@ -1,8 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, avoid_print
 import 'package:event_trace/constants/app_locator.dart';
-import 'package:event_trace/views/components/detail_screen.dart';
+import 'package:event_trace/models/Event.dart';
+import 'package:event_trace/services/request.dart';
+import 'package:event_trace/views/utils/no_result_found.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_toastr/flutter_toastr.dart';
 import 'package:provider/provider.dart';
 
 import 'package:event_trace/constants/app_colors.dart';
@@ -10,8 +11,6 @@ import 'package:event_trace/constants/app_data.dart';
 import 'package:event_trace/constants/app_methods.dart';
 import 'package:event_trace/controllers/event_notifier.dart';
 import 'package:event_trace/views/utils/ad_card.dart';
-import 'package:event_trace/views/utils/event_card.dart';
-import 'package:event_trace/views/utils/event_list_item.dart';
 import 'package:event_trace/views/utils/search_box.dart';
 
 class ExploreScreen extends StatefulWidget {
@@ -24,9 +23,34 @@ class ExploreScreen extends StatefulWidget {
 class _ExploreScreenState extends State<ExploreScreen> {
   final TextEditingController searchController = TextEditingController();
   String address = 'Unknown location';
+  bool loading = true;
 
   void openDrawer() {
     Scaffold.of(context).openDrawer();
+  }
+
+  Future<void> fetchEvents(BuildContext context) async {
+    final response = await getRequest('events', null);
+    try {
+      response.data['events']
+          .map<Event>((eventJson) => Event.fromMap(eventJson))
+          .where((event) => !context
+              .read<EventNotifier>()
+              .eventList
+              .any((e) => e.id == event.id))
+          .forEach((event) => context.read<EventNotifier>().addEvent(event));
+    } catch (e) {
+      triggerToast(
+        context,
+        'Failed to fetch events',
+        Colors.red,
+        Colors.white,
+      );
+    } finally {
+      setState(() {
+        loading = false;
+      });
+    }
   }
 
   @override
@@ -39,6 +63,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
         });
       }
     });
+
+    fetchEvents(context);
   }
 
   @override
@@ -214,51 +240,63 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       right: 20,
                       bottom: 10,
                     ),
-                    child: Consumer<EventNotifier>(
-                      builder: (context, eventNotifier, child) {
-                        return Row(
-                          children: List.generate(
-                            eventNotifier.eventList.length,
-                            (index) {
-                              final event = eventNotifier.eventList[index];
-                              return SizedBox(
-                                width: size.width * 0.7,
-                                child: EventCard(
-                                  name: event.name,
-                                  day: dateFormatter(event.dateTime, "d"),
-                                  month: dateFormatter(event.dateTime, "MMM"),
-                                  image: event.photos!.isNotEmpty
-                                      ? imageUrl(event.photos!.first)
-                                      : "https://picsum.photos/seed/picsum/200",
-                                  location: event.venue != null
-                                      ? event.venue!.name
-                                      : '',
-                                  iconClick: () {
-                                    triggerToast(
-                                      context,
-                                      "${event.name} added to bookmark",
-                                      appGreen,
-                                      Theme.of(context).colorScheme.background,
-                                      FlutterToastr.top,
-                                    );
-                                  },
-                                  cardClick: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return DetailScreen(event: event);
-                                        },
-                                      ),
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    ),
+                    child: loading
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : 
+                        NoResultFound(errorText: 'No upcoming events found')
+                        // Consumer<EventNotifier>(
+                        //     builder: (context, eventNotifier, child) {
+                        //       return Row(
+                        //         children: List.generate(
+                        //           eventNotifier.eventList.length,
+                        //           (index) {
+                        //             final event =
+                        //                 eventNotifier.eventList[index];
+                        //             return SizedBox(
+                        //               width: size.width * 0.7,
+                        //               child: EventCard(
+                        //                 name: event.name,
+                        //                 day: dateFormatter(event.dateTime, "d"),
+                        //                 month: dateFormatter(
+                        //                     event.dateTime, "MMM"),
+                        //                 image: event.photos!.isNotEmpty
+                        //                     ? imageUrl(event.photos!.first)
+                        //                     : "https://picsum.photos/seed/picsum/200",
+                        //                 location: event.venue != null
+                        //                     ? event.venue!.name
+                        //                     : '',
+                        //                 iconClick: () {
+                        //                   triggerToast(
+                        //                     context,
+                        //                     "${event.name} added to bookmark",
+                        //                     appGreen,
+                        //                     Theme.of(context)
+                        //                         .colorScheme
+                        //                         .background,
+                        //                     FlutterToastr.top,
+                        //                   );
+                        //                 },
+                        //                 cardClick: () {
+                        //                   Navigator.push(
+                        //                     context,
+                        //                     MaterialPageRoute(
+                        //                       builder: (context) {
+                        //                         return DetailScreen(
+                        //                             event: event);
+                        //                       },
+                        //                     ),
+                        //                   );
+                        //                 },
+                        //               ),
+                        //             );
+                        //           },
+                        //         ),
+                        //       );
+                        //     },
+                        //   ),
+                
                   ),
                   AdCard(),
                   Padding(
@@ -298,49 +336,57 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       ],
                     ),
                   ),
-                  Consumer<EventNotifier>(
-                    builder: (context, eventNotifier, child) {
-                      return ListView.separated(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        itemBuilder: (BuildContext context, int index) {
-                          final event = eventNotifier.eventList[index];
-                          return EventListItem(
-                            dateTime: dateFormatter(
-                                event.dateTime, "dd MMM yyyy, EEE"),
-                            title: event.name,
-                            location: event.venue!.name,
-                            image: event.photos!.isNotEmpty ? imageUrl(event.photos!.first) : "https://picsum.photos/seed/picsum/200",
-                            iconClick: () {
-                              triggerToast(
-                                context,
-                                "${event.name} added to bookmark",
-                                appGreen,
-                                Theme.of(context).colorScheme.background,
-                                FlutterToastr.top,
-                              );
-                            },
-                            cardClick: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return DetailScreen(event: event);
-                                  },
-                                ),
-                              );
-                            },
-                          );
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return SizedBox(height: 10);
-                        },
-                        itemCount: eventNotifier.eventList.length,
-                      );
-                    },
-                  ),
+                  loading
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : NoResultFound(errorText: 'No nearby events found',),
+                  // Consumer<EventNotifier>(
+                  //     builder: (context, eventNotifier, child) {
+                  //       return ListView.separated(
+                  //         physics: const BouncingScrollPhysics(),
+                  //         scrollDirection: Axis.vertical,
+                  //         shrinkWrap: true,
+                  //         padding: EdgeInsets.symmetric(horizontal: 10),
+                  //         itemBuilder: (BuildContext context, int index) {
+                  //           final event = eventNotifier.eventList[index];
+                  //           return EventListItem(
+                  //             dateTime: dateFormatter(
+                  //                 event.dateTime, "dd MMM yyyy, EEE"),
+                  //             title: event.name,
+                  //             location: event.venue!.name,
+                  //             image: event.photos!.isNotEmpty
+                  //                 ? imageUrl(event.photos!.first)
+                  //                 : "https://picsum.photos/seed/picsum/200",
+                  //             iconClick: () {
+                  //               triggerToast(
+                  //                 context,
+                  //                 "${event.name} added to bookmark",
+                  //                 appGreen,
+                  //                 Theme.of(context).colorScheme.background,
+                  //                 FlutterToastr.top,
+                  //               );
+                  //             },
+                  //             cardClick: () {
+                  //               Navigator.push(
+                  //                 context,
+                  //                 MaterialPageRoute(
+                  //                   builder: (context) {
+                  //                     return DetailScreen(event: event);
+                  //                   },
+                  //                 ),
+                  //               );
+                  //             },
+                  //           );
+                  //         },
+                  //         separatorBuilder:
+                  //             (BuildContext context, int index) {
+                  //           return SizedBox(height: 10);
+                  //         },
+                  //         itemCount: eventNotifier.eventList.length,
+                  //       );
+                  //     },
+                  //   ),
                 ],
               ),
             ),
@@ -350,3 +396,4 @@ class _ExploreScreenState extends State<ExploreScreen> {
     );
   }
 }
+

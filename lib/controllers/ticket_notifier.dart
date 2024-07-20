@@ -2,32 +2,39 @@ import 'package:event_trace/models/Ticket.dart';
 import 'package:flutter/material.dart';
 
 class TicketNotifier extends ChangeNotifier {
-  List<Ticket> ticketList = [];
+  final List<Ticket> _ticketList = [];
+
+  List<Ticket> get ticketList => _ticketList;
+
+  TicketNotifier() {
+    // Initialization logic can be added here.
+  }
 
   // adding ticket
   addTicket(Ticket ticket) {
-    ticketList.add(ticket);
+    _ticketList.add(ticket);
     notifyListeners();
   }
 
   // removing ticket
   removeTicket(Ticket ticket) {
-    ticketList.remove(ticket);
+    _ticketList.remove(ticket);
     notifyListeners();
   }
 
   // updating ticket
   void updateTicket(Ticket updatedTicket) {
-    final index = ticketList.indexWhere((ticket) => ticket.id == updatedTicket.id);
+    final index = _ticketList.indexWhere((ticket) => ticket.id == updatedTicket.id);
     if (index != -1) {
-      ticketList[index] = updatedTicket;
+      _ticketList[index] = updatedTicket;
       notifyListeners();
     }
   }
 
   // loading tickets from server into the provider
   TicketNotifier.all(List<Ticket> tickets) {
-    ticketList = tickets;
+    _ticketList.addAll(tickets);
     notifyListeners();
   }
 }
+

@@ -2,8 +2,15 @@ import 'package:event_trace/models/Event.dart';
 import 'package:flutter/material.dart';
 
 class EventNotifier extends ChangeNotifier {
-  List<Event> eventList = [];
-  String _slug = '';
+  final List<Event> _eventList = [];
+
+  List<Event> get eventList => _eventList;
+
+  EventNotifier() {
+    // Initialization logic can be added here.
+  }
+
+    String _slug = '';
 
   String get slug => _slug;
 
@@ -12,31 +19,31 @@ class EventNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  
   // adding event
   addEvent(Event event) {
-    eventList.add(event);
+    _eventList.add(event);
     notifyListeners();
   }
 
   // removing event
   removeEvent(Event event) {
-    eventList.remove(event);
+    _eventList.remove(event);
     notifyListeners();
   }
 
   // updating event
   void updateEvent(Event updatedEvent) {
-    final index = eventList.indexWhere((event) => event.id == updatedEvent.id);
+    final index = _eventList.indexWhere((event) => event.id == updatedEvent.id);
     if (index != -1) {
-      eventList[index] = updatedEvent;
+      _eventList[index] = updatedEvent;
       notifyListeners();
     }
   }
 
   // loading events from server into the provider
   EventNotifier.all(List<Event> events) {
-    eventList = events;
+    _eventList.addAll(events);
     notifyListeners();
   }
 }
+
