@@ -45,7 +45,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: PageView.builder(
         controller: _pageController,
         itemCount: onboardingContent.length,
@@ -56,7 +56,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 height: MediaQuery.of(context).size.height * .6,
                 width: double.maxFinite,
                 padding: EdgeInsets.only(top: 50),
-                color: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.surface,
                 child: Image.asset(onboardingContent[index]['image']!),
               ),
               Expanded(
@@ -213,7 +213,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Theme.of(context).colorScheme.surface,
             child: Container(
               padding: EdgeInsets.symmetric(
                 horizontal: 20,

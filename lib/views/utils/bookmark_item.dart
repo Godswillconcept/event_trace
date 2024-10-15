@@ -26,16 +26,14 @@ class BookmarkItem extends StatelessWidget {
     return InkWell(
       onTap: cardClick,
       child: Card(
-        
         margin: EdgeInsets.all(8.0),
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         elevation: 2.0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-          side: BorderSide(
-            color: Theme.of(context).colorScheme.tertiaryContainer,
-          )
-        ),
+            borderRadius: BorderRadius.circular(16.0),
+            side: BorderSide(
+              color: Theme.of(context).colorScheme.tertiaryContainer,
+            )),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Row(

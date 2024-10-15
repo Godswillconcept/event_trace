@@ -17,7 +17,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(
@@ -26,7 +26,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
           onPressed: openDrawer,
         ),
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: const Text(
           'Payment',

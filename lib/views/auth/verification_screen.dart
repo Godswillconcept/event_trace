@@ -21,9 +21,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         leading: BackButton(
           color: Theme.of(context).colorScheme.onPrimary,
         ),
@@ -52,7 +52,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           color: Theme.of(context).colorScheme.onPrimary,
                         ),
                       ),
-                       SizedBox(height: 30,),
+                      SizedBox(
+                        height: 30,
+                      ),
                       Padding(
                         padding: EdgeInsets.only(
                           top: 10.0,

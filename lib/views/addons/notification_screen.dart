@@ -14,9 +14,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(
@@ -39,17 +39,20 @@ class _NotificationScreenState extends State<NotificationScreen> {
         itemBuilder: (BuildContext context, int index) {
           return ExpansionTile(
               leading: CircleAvatar(
-                backgroundImage:
-                    AssetImage(notificationData[index]['image']!),
+                backgroundImage: AssetImage(notificationData[index]['image']!),
               ),
-              title: Text(notificationData[index]['title']!, style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),),
+              title: Text(
+                notificationData[index]['title']!,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              ),
               children: [
                 ListTile(
-                  title: Text(notificationData[index]['detail']!, style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  )),
+                  title: Text(notificationData[index]['detail']!,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      )),
                   onTap: () {},
                 )
               ]);

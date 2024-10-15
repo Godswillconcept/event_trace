@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-
 import 'package:event_trace/constants/app_colors.dart';
 import 'package:event_trace/models/User.dart';
 import 'package:flutter/material.dart';
@@ -29,12 +28,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       child: Column(
         children: [
           UserAccountsDrawerHeader(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
             ),
             accountName: Text(
               user!.name!,
@@ -68,7 +67,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             title: const Text('Message'),
             leading: Badge(
               textStyle:
-                  TextStyle(color: Theme.of(context).colorScheme.background),
+                  TextStyle(color: Theme.of(context).colorScheme.surface),
               backgroundColor: appRed,
               label: Text("3"),
               child: Icon(Icons.chat_bubble_outlined),
@@ -126,7 +125,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    backgroundColor: Theme.of(context).colorScheme.background,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
                     title: Text(
                       'Sign Out',
                       style: TextStyle(

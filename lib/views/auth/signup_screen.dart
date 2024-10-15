@@ -31,9 +31,9 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         leading: BackButton(
           color: Theme.of(context).colorScheme.onPrimary,
         ),
@@ -49,11 +49,14 @@ class _SignupScreenState extends State<SignupScreen> {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                          "Sign Up".padRight(8) +
-                    (widget.role == "admin" ? " as Admin" :
-                    widget.role == "event_organizer" ? "as Event Organizer" :
-                    widget.role == "venue_owner" ? "as Venue Owner" :
-                    "as Attendee"),
+                    "Sign Up".padRight(8) +
+                        (widget.role == "admin"
+                            ? " as Admin"
+                            : widget.role == "event_organizer"
+                                ? "as Event Organizer"
+                                : widget.role == "venue_owner"
+                                    ? "as Venue Owner"
+                                    : "as Attendee"),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 24.0,

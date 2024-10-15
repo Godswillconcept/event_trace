@@ -16,7 +16,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(
@@ -25,7 +25,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
           ),
           onPressed: openDrawer,
         ),
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: const Text(
           'Create New Event',

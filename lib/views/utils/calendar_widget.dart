@@ -6,12 +6,11 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:event_trace/models/Event.dart';
 
 class CalendarWidget extends StatefulWidget {
-  const CalendarWidget({ Key? key }) : super(key: key);
+  const CalendarWidget({Key? key}) : super(key: key);
 
   @override
   _CalendarWidgetState createState() => _CalendarWidgetState();
 }
-
 
 class _CalendarWidgetState extends State<CalendarWidget> {
   DateTime today = DateTime.now();
@@ -28,7 +27,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       children: [
         Card(
           elevation: 3,
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
           shadowColor: Theme.of(context).colorScheme.secondary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),

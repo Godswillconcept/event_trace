@@ -15,7 +15,7 @@ class _FilterScreenState extends State<FilterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text('Filter'),
         backgroundColor: Colors.transparent,
@@ -118,7 +118,7 @@ class FilterCategorySection extends StatelessWidget {
   // Dummy data for categories
   final List<String> categories = ['Sports', 'Music', 'Art', 'Food', 'More'];
 
-   FilterCategorySection({super.key});
+  FilterCategorySection({super.key});
 
   @override
   Widget build(BuildContext context) {

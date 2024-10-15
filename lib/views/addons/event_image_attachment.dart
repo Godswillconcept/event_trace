@@ -1,5 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, avoid_print
-import 'dart:developer'; 
+import 'dart:developer';
 
 import 'dart:io';
 
@@ -88,7 +88,7 @@ class _EventImageAttachmentState extends State<EventImageAttachment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: const Text(
           'Attach Image to Event',

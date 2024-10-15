@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 ThemeData lightMode = ThemeData(
   colorScheme: ColorScheme.light(
-    background: Colors.white, // Background color
+    surface: Colors.white, // Background color
     primary: Color(0xff3d56f0), // Define your blue shade
     primaryContainer: Color(0xff46cdfb), // Define your cyan shade
     secondary: Colors.grey.shade500, // Grey as part of the color scheme
@@ -23,7 +23,7 @@ ThemeData lightMode = ThemeData(
     onSecondary: Colors.black, // Text color for elements on secondary color
     onSecondaryContainer:
         Colors.black, // Text color for elements on secondary color containers
-    onBackground: Colors.black, // Text color for elements on background color
+    onSurface: Colors.black, // Text color for elements on background color
     onTertiary: Colors.black, // Text color for elements on tertiary color
     onError: Colors.white, // Text color for error messages
   ),

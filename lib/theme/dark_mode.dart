@@ -9,12 +9,12 @@ ThemeData darkMode = ThemeData(
     secondary: Colors.grey.shade500, // Grey as part of the color scheme
     secondaryContainer:
         Colors.grey[400], // Lighter shade of grey for containers
-    background: Color(0xff1f2c34), // Background color for dark mode
+    surface: Color(0xff1f2c34), // Background color for dark mode
     tertiary: Colors.grey[800], // Another shade of grey for tertiary elements
     tertiaryContainer: Colors
         .grey[300], // Lighter shade of grey for tertiary elements in containers
-    inversePrimary:
-        Color.fromARGB(255, 230, 230, 230), // Text color that contrasts with primary color
+    inversePrimary: Color.fromARGB(
+        255, 230, 230, 230), // Text color that contrasts with primary color
     error: Colors.red, // Error color
     onPrimary: Colors.white, // Text color for elements on primary color
     onPrimaryContainer:
@@ -22,7 +22,7 @@ ThemeData darkMode = ThemeData(
     onSecondary: Colors.white, // Text color for elements on secondary color
     onSecondaryContainer:
         Colors.white, // Text color for elements on secondary color containers
-    onBackground: Colors.white, // Text color for elements on background color
+    onSurface: Colors.white, // Text color for elements on background color
     onTertiary: Colors.white, // Text color for elements on tertiary color
     onError: Colors.black, // Text color for error messages
   ),

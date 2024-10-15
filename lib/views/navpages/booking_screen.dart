@@ -54,7 +54,7 @@ class _BookingScreenState extends State<BookingScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(
@@ -63,7 +63,7 @@ class _BookingScreenState extends State<BookingScreen> {
           ),
           onPressed: openDrawer,
         ),
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: const Text(
           'Bookings',
@@ -89,22 +89,27 @@ class _BookingScreenState extends State<BookingScreen> {
                 return ListView(
                   children: [
                     const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: Text(
                         'Upcoming Events',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
                     ...bookingNotifier.bookingList.map((booking) {
                       log(bookingNotifier.bookingList.length.toString());
                       return ListTile(
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 20),
                         leading: Icon(Icons.event_available,
                             size: 40, color: Colors.green[400]),
-                        title: Text(booking.event!.name, style: const TextStyle(fontSize: 18)),
+                        title: Text(booking.event!.name,
+                            style: const TextStyle(fontSize: 18)),
                         subtitle: Text(
                           'Hosted by ${booking.event!.organizer!.name} on ${dateFormatter(booking.event!.dateTime, 'yMd')} at ${dateFormatter(booking.event!.dateTime, 'jms')}',
-                          style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                          style:
+                              TextStyle(fontSize: 16, color: Colors.grey[600]),
                         ),
                         trailing: Text(
                           '\$${double.parse(booking.ticket!.price!)}',
@@ -116,7 +121,6 @@ class _BookingScreenState extends State<BookingScreen> {
                 );
               },
             ),
-
     );
   }
 }

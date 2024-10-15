@@ -1,6 +1,5 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
 
-
 import 'package:event_trace/models/Event.dart';
 import 'package:event_trace/views/components/detail_screen.dart';
 import 'package:event_trace/views/utils/event_card.dart';
@@ -75,7 +74,7 @@ class _EventsScreenState extends State<EventsScreen> {
         .toList();
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(
@@ -84,7 +83,7 @@ class _EventsScreenState extends State<EventsScreen> {
           ),
           onPressed: openDrawer,
         ),
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(
           'Events',

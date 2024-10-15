@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use, use_build_context_synchronously
 import 'dart:convert';
-import 'package:carousel_slider/carousel_slider.dart';
+// import 'package:carousel_slider/carousel_slider.dart';
 import 'package:event_trace/constants/app_methods.dart';
 import 'package:event_trace/controllers/venue_notifier.dart';
 import 'package:event_trace/models/User.dart';
@@ -94,23 +94,24 @@ class _VenueScreenState extends State<VenueScreen> {
               ? const Center(child: Text('No Venues Found'))
               : ListView(
                   children: [
-                    CarouselSlider(
-                      options: CarouselOptions(
-                        aspectRatio: 16 / 9,
-                        viewportFraction: 1.0,
-                        initialPage: 0,
-                        enableInfiniteScroll: true,
-                        reverse: false,
-                        autoPlay: true,
-                        autoPlayInterval: const Duration(seconds: 3),
-                        autoPlayAnimationDuration:
-                            const Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeCenterPage: true,
-                        scrollDirection: Axis.horizontal,
-                      ),
-                      items: carouselItems,
-                    ),
+                    // CarouselSlider(
+                    //   options: CarouselOptions(
+                    //     aspectRatio: 16 / 9,
+                    //     viewportFraction: 1.0,
+                    //     initialPage: 0,
+                    //     enableInfiniteScroll: true,
+                    //     reverse: false,
+                    //     autoPlay: true,
+                    //     autoPlayInterval: const Duration(seconds: 3),
+                    //     autoPlayAnimationDuration:
+                    //         const Duration(milliseconds: 800),
+                    //     autoPlayCurve: Curves.fastOutSlowIn,
+                    //     enlargeCenterPage: true,
+                    //     scrollDirection: Axis.horizontal,
+                    //   ),
+                    //   items: carouselItems,
+                    // ),
+
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Column(
@@ -129,7 +130,7 @@ class _VenueScreenState extends State<VenueScreen> {
                               venue.description!,
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText2!
+                                  .bodyMedium!
                                   .copyWith(fontStyle: FontStyle.italic),
                             ),
                           ),
@@ -155,7 +156,7 @@ class _VenueScreenState extends State<VenueScreen> {
                           ),
                           Text(
                             'Past Events:',
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           ListView.builder(
                             shrinkWrap: true,
@@ -168,15 +169,20 @@ class _VenueScreenState extends State<VenueScreen> {
                                     padding: const EdgeInsets.all(20.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text(venue.events![i].name, style: Theme.of(context).textTheme.headline6),
+                                        Text(venue.events![i].name,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge),
                                         const SizedBox(height: 10),
                                         Text(venue.events![i].description!),
                                         const SizedBox(height: 15),
                                         ElevatedButton(
                                           child: const Text('OK'),
-                                          onPressed: () => Navigator.pop(context),
+                                          onPressed: () =>
+                                              Navigator.pop(context),
                                         ),
                                       ],
                                     ),

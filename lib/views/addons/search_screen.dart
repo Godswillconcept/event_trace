@@ -23,7 +23,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: Container(
           width: double.maxFinite,
@@ -68,7 +68,9 @@ class _SearchScreenState extends State<SearchScreen> {
                           hintStyle: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 20,
-                            color: Theme.of(context).colorScheme.secondaryContainer,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .secondaryContainer,
                           ),
                           prefixIcon: Icon(
                             Icons.search,

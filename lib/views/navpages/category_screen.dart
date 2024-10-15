@@ -134,7 +134,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           ),
                           title: Text(
                             category.name,
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                           subtitle: Text(
                             category.description!,

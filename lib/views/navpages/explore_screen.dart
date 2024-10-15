@@ -71,7 +71,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(
@@ -234,70 +234,69 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     ),
                   ),
                   SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.only(
-                      left: 20,
-                      right: 20,
-                      bottom: 10,
-                    ),
-                    child: loading
-                        ? Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : 
-                        NoResultFound(errorText: 'No upcoming events found')
-                        // Consumer<EventNotifier>(
-                        //     builder: (context, eventNotifier, child) {
-                        //       return Row(
-                        //         children: List.generate(
-                        //           eventNotifier.eventList.length,
-                        //           (index) {
-                        //             final event =
-                        //                 eventNotifier.eventList[index];
-                        //             return SizedBox(
-                        //               width: size.width * 0.7,
-                        //               child: EventCard(
-                        //                 name: event.name,
-                        //                 day: dateFormatter(event.dateTime, "d"),
-                        //                 month: dateFormatter(
-                        //                     event.dateTime, "MMM"),
-                        //                 image: event.photos!.isNotEmpty
-                        //                     ? imageUrl(event.photos!.first)
-                        //                     : "https://picsum.photos/seed/picsum/200",
-                        //                 location: event.venue != null
-                        //                     ? event.venue!.name
-                        //                     : '',
-                        //                 iconClick: () {
-                        //                   triggerToast(
-                        //                     context,
-                        //                     "${event.name} added to bookmark",
-                        //                     appGreen,
-                        //                     Theme.of(context)
-                        //                         .colorScheme
-                        //                         .background,
-                        //                     FlutterToastr.top,
-                        //                   );
-                        //                 },
-                        //                 cardClick: () {
-                        //                   Navigator.push(
-                        //                     context,
-                        //                     MaterialPageRoute(
-                        //                       builder: (context) {
-                        //                         return DetailScreen(
-                        //                             event: event);
-                        //                       },
-                        //                     ),
-                        //                   );
-                        //                 },
-                        //               ),
-                        //             );
-                        //           },
-                        //         ),
-                        //       );
-                        //     },
-                        //   ),
-                
-                  ),
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                        bottom: 10,
+                      ),
+                      child: loading
+                          ? Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : NoResultFound(errorText: 'No upcoming events found')
+                      // Consumer<EventNotifier>(
+                      //     builder: (context, eventNotifier, child) {
+                      //       return Row(
+                      //         children: List.generate(
+                      //           eventNotifier.eventList.length,
+                      //           (index) {
+                      //             final event =
+                      //                 eventNotifier.eventList[index];
+                      //             return SizedBox(
+                      //               width: size.width * 0.7,
+                      //               child: EventCard(
+                      //                 name: event.name,
+                      //                 day: dateFormatter(event.dateTime, "d"),
+                      //                 month: dateFormatter(
+                      //                     event.dateTime, "MMM"),
+                      //                 image: event.photos!.isNotEmpty
+                      //                     ? imageUrl(event.photos!.first)
+                      //                     : "https://picsum.photos/seed/picsum/200",
+                      //                 location: event.venue != null
+                      //                     ? event.venue!.name
+                      //                     : '',
+                      //                 iconClick: () {
+                      //                   triggerToast(
+                      //                     context,
+                      //                     "${event.name} added to bookmark",
+                      //                     appGreen,
+                      //                     Theme.of(context)
+                      //                         .colorScheme
+                      //                         .background,
+                      //                     FlutterToastr.top,
+                      //                   );
+                      //                 },
+                      //                 cardClick: () {
+                      //                   Navigator.push(
+                      //                     context,
+                      //                     MaterialPageRoute(
+                      //                       builder: (context) {
+                      //                         return DetailScreen(
+                      //                             event: event);
+                      //                       },
+                      //                     ),
+                      //                   );
+                      //                 },
+                      //               ),
+                      //             );
+                      //           },
+                      //         ),
+                      //       );
+                      //     },
+                      //   ),
+
+                      ),
                   AdCard(),
                   Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -340,7 +339,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       ? Center(
                           child: CircularProgressIndicator(),
                         )
-                      : NoResultFound(errorText: 'No nearby events found',),
+                      : NoResultFound(
+                          errorText: 'No nearby events found',
+                        ),
                   // Consumer<EventNotifier>(
                   //     builder: (context, eventNotifier, child) {
                   //       return ListView.separated(
@@ -396,4 +397,3 @@ class _ExploreScreenState extends State<ExploreScreen> {
     );
   }
 }
-
